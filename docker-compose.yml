@@ -1,0 +1,23 @@
+version: "3.5"
+
+services:
+  flask-api:
+    build:
+      context: ./app
+    restart: unless-stopped
+    container_name: flask-app
+    image: example-flask-app
+    ports:
+      - "5000:5000"
+    networks:
+      example-network:
+        ipv4_address: 172.16.238.10
+
+networks:
+  example-network:
+    name: example-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
